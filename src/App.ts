@@ -1,3 +1,4 @@
+import * as console from 'console';
 import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
@@ -38,6 +39,7 @@ class App {
     });
 
     router.post('/', (req: express.Request , res: express.Response, next: express.NextFunction) => {
+     console.log(JSON.stringify(req.body))
       if(req.body['result']['action'] === 'AddNumbers'){
         const nums: number[] = req.body['result']['parameters']['a'];
        const total = nums.reduce((sum,current) => sum+current);
