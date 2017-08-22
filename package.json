@@ -4,7 +4,8 @@
     "description": "This is used for routing the fullfilment service",
     "main": "start.ts",
     "scripts": {
-        "start": "gulp serve"
+        "start": "gulp serve",
+        "postinstall": "gulp default"
     },
     "repository": {
         "type": "git",
@@ -32,9 +33,7 @@
         "nodemon": "^1.11.0",
         "gulp": "^3.9.1",
         "gulp-nodemon": "^2.2.1",
-        "gulp-typescript": "^3.2.2"
-    },
-    "devDependencies": {
+        "gulp-typescript": "^3.2.2",
         "@types/body-parser": "^1.16.5",
         "@types/debug": "0.0.30",
         "@types/express": "^4.0.37",
@@ -42,5 +41,8 @@
         "@types/node": "^8.0.24",
 
         "typescript": "^2.4.2"
+    },
+    "devDependencies": {
+
     }
 }
