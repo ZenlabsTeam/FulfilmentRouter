@@ -4,7 +4,7 @@
     "description": "This is used for routing the fullfilment service",
     "main": "start.ts",
     "scripts": {
-        "start": "gulp serve",
+        "start": "node ./dist/index.js",
         "postinstall": "gulp default"
     },
     "repository": {

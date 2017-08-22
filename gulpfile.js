@@ -30,4 +30,4 @@ gulp.task('serve', ['watch', 'assets'], function() {
         })
 })
 
-gulp.task('default', ['watch', 'assets']);
+gulp.task('default', ['scripts', 'assets']);
