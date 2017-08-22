@@ -42,7 +42,10 @@ class App {
         const nums: number[] = req.body['result']['parameters']['a'];
        const total = nums.reduce((sum,current) => sum+current);
         res.json({
-          message: `The total Amount is ${total}` 
+          speech: `The total Amount is ${total}` ,
+          displayText: `The total Amount is ${total}` ,
+          source:'My Tool'
+
         });
       }
       else{
