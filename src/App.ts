@@ -1,0 +1,60 @@
+import * as path from 'path';
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as bodyParser from 'body-parser';
+
+// Creates and configures an ExpressJS web server.
+class App {
+
+  // ref to Express instance
+  public express: express.Application;
+
+  //Run configuration methods on the Express instance.
+  constructor() {
+    this.express = express();   
+    this.middleware();
+    this.routes();
+  }
+
+  // Configure Express middleware.
+  private middleware(): void {
+    this.express.use(logger('dev'));
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+  }
+
+  // Configure API endpoints.
+  private routes(): void {
+    /* This is just to get up and running, and to make sure what we've got is
+     * working so far. This function will change when we start to add more
+     * API endpoints */
+    let router = express.Router();
+    // placeholder route handler
+    router.get('/', (req: express.Request , res: express.Response, next: express.NextFunction) => {
+      
+      res.json({
+        message: 'its working'
+      });
+    });
+
+    router.post('/', (req: express.Request , res: express.Response, next: express.NextFunction) => {
+      if(req.body['result']['action'] === 'AddNumbers'){
+        const nums: number[] = req.body['result']['parameters']['a'];
+       const total = nums.reduce((sum,current) => sum+current);
+        res.json({
+          message: `The total Amount is ${total}` 
+        });
+      }
+      else{
+      res.json({
+        message: 'its working -'+ req.body['result']['action'] + ' - '
+        +req.body['result']['parameters']
+      });
+    }
+    })
+    this.express.use('/', router);
+  }
+
+}
+
+export default new App().express;
