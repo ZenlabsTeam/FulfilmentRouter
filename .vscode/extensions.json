@@ -1,0 +1,24 @@
+{
+    "recommendations": [
+        "christian-kohler.npm-intellisense",
+        "CoenraadS.bracket-pair-colorizer",
+        "DavidAnson.vscode-markdownlint",
+        "dbaeumer.jshint",
+        "donjayamanne.githistory",
+        "ecmel.vscode-html-css",
+        "eg2.tslint",
+        "eg2.vscode-npm-script",
+        "fknop.vscode-npm",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "HookyQR.beautify",
+        "humao.rest-client",
+        "lonefy.vscode-JS-CSS-HTML-formatter",
+        "mkaufman.HTMLHint",
+        "msjsdiag.debugger-for-chrome",
+        "prashaantt.node-tdd",
+        "rbbit.typescript-hero",
+        "robertohuertasm.vscode-icons",
+        "Zignd.html-css-class-completion"
+    ]
+}
