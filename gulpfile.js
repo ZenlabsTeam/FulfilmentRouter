@@ -23,7 +23,7 @@ gulp.task('assets', function() {
 
 gulp.task('serve', ['watch', 'assets'], function() {
     return nodemon({
-            script: './dist/index.js',
+            script: './dist/src/index.js',
         })
         .on('restart', function() {
             console.log('restarted');

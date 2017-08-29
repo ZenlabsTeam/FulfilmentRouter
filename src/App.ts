@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
-
+import * as jsonpath from 'jsonpath';
 // Creates and configures an ExpressJS web server.
 class App {
 
@@ -40,8 +40,11 @@ class App {
 
     router.post('/', (req: express.Request , res: express.Response, next: express.NextFunction) => {
      console.log(JSON.stringify(req.body))
-      if(req.body['result']['action'] === 'AddNumbers'){
-        const nums: number[] = req.body['result']['parameters']['a'];
+     const condtionLeft:any[] = jsonpath.query(req.body,'$.result.action' );
+     console.log(JSON.stringify(condtionLeft));
+      if(condtionLeft.indexOf( 'AddNumbers') >-1){
+        const nums = jsonpath.query(req.body,'$.result.parameters.a' )[0];
+        console.log(JSON.stringify(nums));
        const total = nums.reduce((sum,current) => sum+current);
         res.json({
           speech: `The total Amount is ${total}` ,
