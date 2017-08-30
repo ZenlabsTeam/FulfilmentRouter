@@ -46,9 +46,9 @@ class App {
       if(condtionLeft.indexOf( 'AddNumbers') >-1){
         const nums = jsonpath.query(req.body,'$.result.parameters.a' )[0];
         console.log(JSON.stringify(nums));
-        remoteRequest.post('https://mathservice.herokuapp.com/sum',nums)
+        remoteRequest.post('http://localhost:8080/sum',nums)
         .on('response', function(serviceResponse){
-          console.log(JSON.stringify(serviceResponse));
+          console.log('DATA returned:'+JSON.stringify(serviceResponse));
         });
         
        const total = nums.reduce((sum,current) => sum+current);
