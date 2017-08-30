@@ -33,6 +33,7 @@
     "@types/jsonpath": "^0.2.0",
     "@types/morgan": "^1.7.32",
     "@types/node": "^8.0.24",
+    "@types/request": "^2.0.3",
     "body-parser": "^1.17.2",
     "debug": "^3.0.0",
     "express": "^4.15.4",
@@ -42,6 +43,7 @@
     "jsonpath": "^0.2.12",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
+    "request": "^2.81.0",
     "typescript": "^2.4.2"
   },
   "devDependencies": {

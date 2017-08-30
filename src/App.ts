@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as jsonpath from 'jsonpath';
+import * as remoteRequest from 'request'
 // Creates and configures an ExpressJS web server.
 class App {
 
@@ -45,6 +46,11 @@ class App {
       if(condtionLeft.indexOf( 'AddNumbers') >-1){
         const nums = jsonpath.query(req.body,'$.result.parameters.a' )[0];
         console.log(JSON.stringify(nums));
+        remoteRequest.post('https://mathservice.herokuapp.com/sum',nums)
+        .on('response', function(serviceResponse){
+          console.log(JSON.stringify(serviceResponse));
+        });
+        
        const total = nums.reduce((sum,current) => sum+current);
         res.json({
           speech: `The total Amount is ${total}` ,
