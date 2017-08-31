@@ -4,7 +4,7 @@
     "description": "This is used for routing the fullfilment service",
     "main": "start.ts",
     "scripts": {
-        "start": "node ./dist/index.js",
+        "start": "node ./dist/src/index.js",
         "postinstall": "gulp default",
         "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'"
     },
