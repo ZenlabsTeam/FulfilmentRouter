@@ -41,9 +41,9 @@ class App {
 
     router.post('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
       console.log(JSON.stringify(req.body))
-      const condtionLeft: any[] = jsonpath.query(req.body, '$.result.action');
-      console.log(JSON.stringify(condtionLeft));
-      if (condtionLeft.indexOf('AddNumbers') > -1) {
+      const action: string = jsonpath.query(req.body, '$.result.action')[0];
+      console.log(JSON.stringify(action));
+      if (action === 'AddNumbers' ) {
         const nums = jsonpath.query(req.body, '$.result.parameters.a')[0];
         console.log(JSON.stringify(nums));
         let requestOptions: remoteRequest.Options = {
