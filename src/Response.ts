@@ -1,4 +1,4 @@
-
+/* As of Now not used */
 export class Response{
     speech:String;
     displayText:String;
