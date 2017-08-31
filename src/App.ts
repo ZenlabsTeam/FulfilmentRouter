@@ -74,8 +74,6 @@ class App {
           }
         });
 
-
-        const total = nums.reduce((sum, current) => sum + current);
         ;
       }
       else {
