@@ -19,7 +19,7 @@ describe('baseRoute', () => {
   it('should have a message prop', () => {
     return chai.request(app).get('/')
     .then(res => {
-      expect(res.body.message).to.eql('its working');
+      expect(res.body.message).to.eql('its workings');
     });
   });
 
