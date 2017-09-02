@@ -4,10 +4,8 @@ import * as jsonpath from 'jsonpath';
 import * as request from 'request'
 import * as _ from 'lodash';
 export class FulfilmentService {
-  private testPrint(): void {
-    console.log('testPrint');
-  }
-  private processService(requestOptions: request.Options, res: express.Response, speechTemplate: string): void {
+  
+  private static processService(requestOptions: request.Options, res: express.Response, speechTemplate: string): void {
     request(requestOptions, (error, response, body) => {
       if (error) {
         console.log(JSON.stringify(error));
@@ -40,62 +38,59 @@ export class FulfilmentService {
     });
   }
   public apiaiHandler(req: express.Request, res: express.Response, next: express.NextFunction): void {
-    this.testPrint();
-    console.log(JSON.stringify(req.body))
+ 
     const action: string = req.body.result.action;
-
+    let requestOptions: request.Options = {
+      method: 'POST',
+      qs: {},
+      headers: {},
+      uri: 'https://mathservice.herokuapp.com',
+      useQuerystring: false,
+      json: true,
+      body: {},
+    };
+    let msgTemplate = '';
     if (action === 'AddNumbers') {
-      const nums = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      console.log('Nums:' + JSON.stringify(nums));
-      let requestOptions: request.Options = {
-        method: 'POST',
-        qs: {},
-        headers: {},
-        uri: 'https://mathservice.herokuapp.com/sum',
-        useQuerystring: false,
-        json: true,
-        body: nums,
-      };
-      console.log(action);
-      this.processService(requestOptions, res, 'The total Amount is <%=body%>');
+      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
+      requestOptions.uri=requestOptions.uri+'/sum';
+      msgTemplate = 'The total Amount is <%=body%>';
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
     } else if (action === 'maximum') {
-      const nums = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      console.log(JSON.stringify(nums));
-      let requestOptions: request.Options = {
-        method: 'POST',
-        qs: {},
-        headers: {},
-        uri: 'https://mathservice.herokuapp.com/max',
-        useQuerystring: false,
-        json: true,
-        body: nums,
-      };
-      this.processService(requestOptions, res, 'The maximum Amount is <%=body%>');
+      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
+      requestOptions.uri=requestOptions.uri+'/max';
+      msgTemplate = 'The maximum Amount is <%=body%>';
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
+     
     } else if (action === 'minimum') {
-      const nums = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      console.log(JSON.stringify(nums));
-      let requestOptions: request.Options = {
-        method: 'POST',
-        qs: {},
-        headers: {},
-        uri: 'https://mathservice.herokuapp.com/min',
-        useQuerystring: false,
-        json: true,
-        body: nums,
-      };
-      this.processService(requestOptions, res, 'The minimum Amount is <%=body%>');
+      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
+      requestOptions.uri=requestOptions.uri+'/min';
+      msgTemplate = 'The minimum Amount is <%=body%>';
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
+     
     } else if (action === 'pivalue') {
-
-      let requestOptions: request.Options = {
-        method: 'GET',
-        qs: {},
-        headers: {},
-        uri: 'https://mathservice.herokuapp.com/pi',
-        useQuerystring: false,
-        json: true,
-        body: {},
+      requestOptions.method =  'GET';
+      requestOptions.uri=requestOptions.uri+'/pi';
+      msgTemplate = 'The value of PI is <%=body%>';
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
+    }else if (action === 'power') {
+      requestOptions.body = {
+        "base": jsonpath.query(req.body, '$.result.parameters.base')[0],
+        "power": jsonpath.query(req.body, '$.result.parameters.power')[0]
       };
-      this.processService(requestOptions, res, 'The value of PI is <%=body%>');
+      
+      requestOptions.uri=requestOptions.uri+'/power';
+      msgTemplate = 'The result is <%=body%>';
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
+     
+    }else if (action === 'sqrt') {
+     
+      
+      requestOptions.uri=requestOptions.uri+'/sqrt/'+ jsonpath.query(req.body, '$.result.parameters.number')[0];
+      
+      msgTemplate = 'The result is <%=body%>';
+      console.log('Test');
+      FulfilmentService.processService(requestOptions, res, msgTemplate);
+     
     }
     else {
       res.json({
