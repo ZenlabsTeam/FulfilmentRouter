@@ -1,0 +1,46 @@
+### 
+GET http://localhost:3000/
+
+###
+POST http://localhost:3000/
+content-type: application/json
+
+{
+  "id": "953d15c3-2f2a-44a6-8ee1-d83b64d4b5ce",
+  "timestamp": "2017-08-22T16:57:24.109Z",
+  "lang": "en",
+  "result": {
+    "source": "agent",
+    "resolvedQuery": "Add 8 7",
+    "action": "power",
+    "actionIncomplete": false,
+    "parameters": {
+      "base": 3,
+      "power": 2
+    },
+    "contexts": [],
+    "metadata": {
+      "intentId": "573cf5a2-0a19-4348-9bdf-edf95f03d2ca",
+      "webhookUsed": "false",
+      "webhookForSlotFillingUsed": "false",
+      "intentName": "Add Numbers"
+    },
+    "fulfillment": {
+      "speech": "AddNumbers",
+      "messages": [
+        {
+          "type": 0,
+          "speech": "AddNumbers"
+        }
+      ]
+    },
+    "score": 1
+  },
+  "status": {
+    "code": 200,
+    "errorType": "success"
+  },
+  "sessionId": "62888e3f-bff3-4461-ab89-c2897923c262"
+}
+
+###

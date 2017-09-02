@@ -2,7 +2,7 @@
     "name": "fulfilmentrouter",
     "version": "1.0.0",
     "description": "This is used for routing the fullfilment service",
-    "main": "start.ts",
+    "main": "src/index.ts",
     "scripts": {
         "start": "node ./dist/src/index.js",
         "dev": "gulp serve",
