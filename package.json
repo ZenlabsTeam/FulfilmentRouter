@@ -2,12 +2,12 @@
     "name": "fulfilmentrouter",
     "version": "1.0.0",
     "description": "This is used for routing the fullfilment service",
-    "main": "src/index.ts",
+    "main": "index.ts",
     "scripts": {
         "start": "node ./dist/src/index.js",
-        "dev": "gulp serve",
         "postinstall": "gulp default",
-        "test": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'"
+        "test": "mocha dist/test",
+        "test1": "mocha --reporter spec --compilers ts:ts-node/register 'test/**/*.test.ts'"
     },
     "repository": {
         "type": "git",
