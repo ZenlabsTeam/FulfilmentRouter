@@ -12,7 +12,7 @@ content-type: application/json
   "result": {
     "source": "agent",
     "resolvedQuery": "Add 8 7",
-    "action": "power",
+    "action": "pivalue",
     "actionIncomplete": false,
     "parameters": {
       "base": 3,

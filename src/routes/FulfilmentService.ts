@@ -18,7 +18,7 @@ export class FulfilmentService {
       } else {
         if (response.statusCode >= 200 && response.statusCode <= 299) {
           const speech = _.template(speechTemplate)({ body: body });
-
+           console.log('Error' + JSON.stringify(response));
           res.json({
             speech: speech,
             displayText: speech,
