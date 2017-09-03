@@ -8,7 +8,7 @@
         "action": "AddNumbers",
         "actionIncomplete": false,
         "parameters": {
-            "a": [
+            "number": [
                 10,
                 20,
                 60
