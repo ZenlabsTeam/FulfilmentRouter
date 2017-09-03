@@ -1,0 +1,55 @@
+{
+    "services": {
+        "MathService": {
+            "baseURL": "https://mathservice.herokuapp.com"
+        }
+
+    },
+
+    "routes": {
+        "AddNumbers": {
+            "serviceName": "MathService",
+            "path": "/sum",
+            "method": "POST",
+            "msgTemplate": "The total Amount is <%=body%>",
+            "input": "$.result.parameters.number"
+        },
+        "maximum": {
+            "serviceName": "MathService",
+            "path": "/max",
+            "method": "POST",
+            "msgTemplate": "The maximum Amount is <%=body%>",
+            "input": "$.result.parameters.number"
+        },
+        "minimum": {
+            "serviceName": "MathService",
+            "path": "/min",
+            "method": "POST",
+            "msgTemplate": "The minimum Amount is <%=body%>",
+            "input": "$.result.parameters.number"
+        },
+        "pivalue": {
+            "serviceName": "MathService",
+            "path": "/pi",
+            "method": "GET",
+            "msgTemplate": "The value of PI is <%=body%>"
+        },
+        "power": {
+            "serviceName": "MathService",
+            "path": "/power",
+            "method": "POST",
+            "msgTemplate": "The result is <%=body%>",
+            "input": {
+                "base": "$.result.parameters.base",
+                "power": "$.result.parameters.power"
+            }
+        },
+        "sqrt": {
+            "serviceName": "MathService",
+            "path": "/sqrt",
+            "method": "POST",
+            "msgTemplate": "The result is <%=body%>",
+            "urlAppend": "$.result.parameters.number"
+        }
+    }
+}

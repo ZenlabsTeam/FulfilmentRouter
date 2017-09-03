@@ -18,7 +18,7 @@ gulp.task('watch', ['scripts'], () => {
 
 gulp.task('assets', function() {
     return gulp.src(JSON_FILES)
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/src/'));
 });
 
 gulp.task('serve', ['watch', 'assets'], function() {
