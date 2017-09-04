@@ -5,7 +5,7 @@ export class MetricsService {
 
   public metrics(req: express.Request, res: express.Response, next: express.NextFunction): void {
     let returnValue:any = { status: 'UP'}
-    if(Process){
+    if(Process.cpuUsage){
       returnValue = {
         cpuUsage: Process.cpuUsage(),
         memoryUsage: Process.memoryUsage(),
