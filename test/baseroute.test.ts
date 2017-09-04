@@ -11,14 +11,14 @@ describe('baseRoute', () => {
 
   it('should be json', () => {
     return chai.request(app).get('/')
-    .then(res => {
+    .end(res => {
       expect(res.type).to.eql('application/json');
     });
   });
 
   it('should have a message prop', () => {
     return chai.request(app).get('/')
-    .then(res => {
+    .end(res => {
       expect(res.body.status).to.eql('UP');
     });
   });
