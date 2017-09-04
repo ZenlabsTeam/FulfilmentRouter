@@ -4,25 +4,25 @@ import * as jsonpath from 'jsonpath';
 import * as request from 'request'
 import * as _ from 'lodash';
 export class FulfilmentService {
-  
-  private static processService(requestOptions: request.Options, res: express.Response, speechTemplate: string): void {
+
+  private static processService(requestOptions: request.Options, res: express.Response, speechTemplate: string, serviceName: string): void {
     request(requestOptions, (error, response, body) => {
       if (error) {
         console.log(JSON.stringify(error));
         res.json({
           speech: 'Error from Service',
           displayText: 'Error from Service',
-          source: 'Math Service'
+          source: 'Router'
 
         })
       } else {
         if (response.statusCode >= 200 && response.statusCode <= 299) {
           const speech = _.template(speechTemplate)({ body: body });
-           console.log('Error' + JSON.stringify(response));
+          console.log('Sucess' + JSON.stringify(response));
           res.json({
             speech: speech,
             displayText: speech,
-            source: 'Math Service'
+            source: serviceName
 
           })
         } else {
@@ -30,7 +30,7 @@ export class FulfilmentService {
           res.json({
             speech: 'Invalid Response from Service',
             displayText: 'Invalid Response from Service',
-            source: 'Math Service'
+            source: serviceName
 
           })
         }
@@ -38,66 +38,50 @@ export class FulfilmentService {
     });
   }
   public apiaiHandler(req: express.Request, res: express.Response, next: express.NextFunction): void {
- 
+    const configData = (<any>require('./../config.json'));
     const action: string = req.body.result.action;
-    let requestOptions: request.Options = {
-      method: 'POST',
-      qs: {},
-      headers: {},
-      uri: 'https://mathservice.herokuapp.com',
-      useQuerystring: false,
-      json: true,
-      body: {},
-    };
+
     let msgTemplate = '';
-    if (action === 'AddNumbers') {
-      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      requestOptions.uri=requestOptions.uri+'/sum';
-      msgTemplate = 'The total Amount is <%=body%>';
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-    } else if (action === 'maximum') {
-      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      requestOptions.uri=requestOptions.uri+'/max';
-      msgTemplate = 'The maximum Amount is <%=body%>';
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-     
-    } else if (action === 'minimum') {
-      requestOptions.body = jsonpath.query(req.body, '$.result.parameters.number')[0];
-      requestOptions.uri=requestOptions.uri+'/min';
-      msgTemplate = 'The minimum Amount is <%=body%>';
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-     
-    } else if (action === 'pivalue') {
-      requestOptions.method =  'GET';
-      requestOptions.uri=requestOptions.uri+'/pi';
-      msgTemplate = 'The value of PI is <%=body%>';
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-    }else if (action === 'power') {
-      requestOptions.body = {
-        "base": jsonpath.query(req.body, '$.result.parameters.base')[0],
-        "power": jsonpath.query(req.body, '$.result.parameters.power')[0]
+    const routeDetail = configData.routes[action];
+    if (routeDetail) {
+      let body: any;
+
+      if (routeDetail.input) {
+        const typeCode = typeof routeDetail.input;
+        if (typeCode === 'string') {
+          body = jsonpath.query(req.body, routeDetail.input)[0];
+        } else {
+          body = {};
+          for (const key in routeDetail.input) {
+            body[key] = jsonpath.query(req.body, routeDetail.input[key])[0];
+          }
+        }
+
+      } else {
+        body = {};
+      }
+      var uri = configData.services[routeDetail.serviceName].baseURL + routeDetail.path;
+      if (routeDetail.urlAppend) {
+        uri = uri + '/' + jsonpath.query(req.body, routeDetail.urlAppend)[0];
+      }
+      const requestOptions: request.Options = {
+        method: routeDetail.method,
+        qs: {},
+        headers: {},
+        uri: uri,
+        useQuerystring: false,
+        json: true,
+        body: body,
       };
-      
-      requestOptions.uri=requestOptions.uri+'/power';
-      msgTemplate = 'The result is <%=body%>';
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-     
-    }else if (action === 'sqrt') {
-     
-      
-      requestOptions.uri=requestOptions.uri+'/sqrt/'+ jsonpath.query(req.body, '$.result.parameters.number')[0];
-      
-      msgTemplate = 'The result is <%=body%>';
-      console.log('Test');
-      FulfilmentService.processService(requestOptions, res, msgTemplate);
-     
-    }
-    else {
+
+      FulfilmentService.processService(requestOptions, res, routeDetail.msgTemplate, routeDetail.serviceName);
+    } else {
       res.json({
-        message: 'its working -' + req.body['result']['action'] + ' - '
-        + req.body['result']['parameters']
+        message: 'Unable to Find Router for' + req.body.result.action
       });
     }
+
+
   }
 
 }
