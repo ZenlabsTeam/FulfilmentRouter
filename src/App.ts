@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as basicAuth from 'express-basic-auth'
 import * as fullfilmentService from './routes/FulfilmentService';
 import * as metricsService from './routes/MetricsService';
 // Creates and configures an ExpressJS web server.
@@ -24,6 +25,9 @@ class App {
     this.express.disable('x-powered-by')
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+   this.express.use(basicAuth({
+      authorizer: (user: string, password: string) => (password === 'password' && user === 'user')
+  }));
   }
 
   // Configure API endpoints.
@@ -33,7 +37,7 @@ class App {
     const metricsInstance = new metricsService.MetricsService();
     router.get('/', metricsInstance.metrics);
     const fullfilmentInstance = new fullfilmentService.FulfilmentService();
-    router.post('/', fullfilmentInstance.apiaiHandler);
+    router.post('/api', fullfilmentInstance.apiaiHandler);
 
     this.express.use('/', router);
   }
