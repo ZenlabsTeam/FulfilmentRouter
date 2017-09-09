@@ -3,13 +3,20 @@ import * as express from 'express';
 import * as jsonpath from 'jsonpath';
 import * as request from 'request'
 import * as _ from 'lodash';
-import * as config from './../RoutingConfig/Config';
+import * as config from './../RoutingConfig/ConfigManager';
+export interface  RouterInput{
+  result: {
+    action:string,
+    parameters: {
+      [key: string]: any
+    }
+  };
+}
 export class FulfilmentService {
 
   private static processService(requestOptions: request.Options, res: express.Response, speechTemplate: string, serviceName: string): void {
     request(requestOptions, (error, response, body) => {
       if (error) {
-        console.log('ABCD',JSON.stringify(requestOptions),);
         res.json({
           speech: 'Error from Service',
           displayText: 'Error from Service',
@@ -19,7 +26,6 @@ export class FulfilmentService {
       } else {
         if (response.statusCode >= 200 && response.statusCode <= 299) {
           const speech = _.template(speechTemplate)({ body: body });
-          console.log('Sucess' + JSON.stringify(response));
           res.json({
             speech: speech,
             displayText: speech,
@@ -40,34 +46,27 @@ export class FulfilmentService {
   }
   
   public apiaiHandler(req: express.Request, res: express.Response, next: express.NextFunction): void {
-   // const configData = (<any>require('./../config.json'));
-    const routeMap = (new config.ConfigManager('./../config.json')).serviceRouteMap
-    const action: string = req.body.result.action;
 
-    let msgTemplate = '';
-    const routeDetail = routeMap[action];
+    const serviceActionMap = (new config.ConfigManager('./../config.json')).serviceActionMap
+    const routeMap =serviceActionMap.routes;
+    const routerInput =<RouterInput>req.body;
+
+    const routeDetail = routeMap[routerInput.result.action];
     if (routeDetail) {
-      let body: any;
+      let body: any ={};
 
       if (routeDetail.inputPath) {
-      
-          body = jsonpath.query(req.body, routeDetail.inputPath)[0];
-       
-
-      } else if (routeDetail.multiInput){
-        body = {};
+          body = jsonpath.query(routerInput, routeDetail.inputPath)[0];
+       } else if (routeDetail.multiInput){
         for (const key in routeDetail.multiInput) {
-          body[key] = jsonpath.query(req.body, routeDetail.multiInput[key])[0];
+          body[key] = jsonpath.query(routerInput, routeDetail.multiInput[key])[0];
         }
       }
-       else {
-        body = {};
-      }
+      
 
-      var uri = routeDetail.service.baseURL + routeDetail.path;
-      console.log('uri',uri)
+      var uri = serviceActionMap.services[routeDetail.serviceName].baseURL + routeDetail.path;
       if (routeDetail.urlAppend) {
-        uri = uri + '/' + jsonpath.query(req.body, routeDetail.urlAppend)[0];
+        uri = uri + '/' + jsonpath.query(routerInput, routeDetail.urlAppend)[0];
       }
       const requestOptions: request.Options = {
         method: routeDetail.method,
@@ -79,7 +78,7 @@ export class FulfilmentService {
         body: body,
       };
 
-      FulfilmentService.processService(requestOptions, res, routeDetail.msgTemplate, routeDetail.service.name);
+      FulfilmentService.processService(requestOptions, res, routeDetail.msgTemplate, routeDetail.serviceName);
     } else {
       res.json({
         message: 'Unable to Find Router for' + req.body.result.action
