@@ -1,4 +1,5 @@
 
+import {Get, Post, Route, Body, Query, Header, Path, SuccessResponse, Controller } from 'tsoa';
 import * as express from 'express';
 import * as jsonpath from 'jsonpath';
 import * as request from 'request-promise'
@@ -17,19 +18,24 @@ export interface RouterInput {
     }
   };
 }
-export class FulfilmentService {
+@Route('ApiAI')
+export class FulfilmentService extends Controller{
+  @Post()
+  public async routeProcess(@Body()routerInput: RouterInput): Promise<RouterOutput>{
+    return FulfilmentService.routeHandler(routerInput);
+  }
 
   private static processService(requestOptions: request.Options, speechTemplate: string, serviceName: string): Promise<RouterOutput> {
 
     return new Promise((resolve, reject) => {
-      request(requestOptions).then((body) => {
+      request(requestOptions).then((body:any) => {
         const speech = _.template(speechTemplate)({ body: body });
         resolve({
           speech: speech,
           displayText: speech,
           source: serviceName
         });
-      }).catch((error) => {
+      }).catch((error:any) => {
         resolve({
           speech: 'Error from Service',
           displayText: 'Error from Service',
@@ -40,7 +46,7 @@ export class FulfilmentService {
     });
 
   }
-  public static routeHandler(routerInput: RouterInput): Promise<RouterOutput> {
+  private static routeHandler(routerInput: RouterInput): Promise<RouterOutput> {
     return new Promise((resolve, reject) => {
       const serviceActionMap = (new config.ConfigManager('./../config.json')).serviceActionMap;
       const routeMap = serviceActionMap.routes;

@@ -1,4 +1,5 @@
 
+import {Get, Post, Route, Body, Query, Header, Path, SuccessResponse, Controller } from 'tsoa';
 import * as express from 'express';
 import * as Process from 'process';
 export interface MetricsType{
@@ -8,8 +9,12 @@ export interface MetricsType{
   upTime?: number;
 
 }
-export class MetricsService {
-
+@Route('Metrics')
+export class MetricsService extends Controller{
+  @Get()
+  public getProcessMetrics():MetricsType{
+    return MetricsService.getMetrics();
+  }
   private static getMetrics():MetricsType{
     let returnValue:MetricsType; 
     if(Process.cpuUsage){
