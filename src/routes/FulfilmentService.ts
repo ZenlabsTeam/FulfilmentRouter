@@ -10,12 +10,13 @@ export interface RouterOutput {
   displayText: string,
   source: string
 }
+export interface RouterInputParameter{
+  key:string,
+  value:any
+}
 export interface RouterInput {
   result: {
-    action: string,
-    parameters: {
-      [key: string]: any
-    }
+    action: string
   };
 }
 @Route('ApiAI')

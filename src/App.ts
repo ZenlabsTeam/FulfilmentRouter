@@ -6,6 +6,8 @@ import * as bodyParser from 'body-parser';
 import * as basicAuth from 'express-basic-auth'
 import * as fullfilmentService from './routes/FulfilmentService';
 import * as metricsService from './routes/MetricsService';
+import * as methodOverride from 'method-override';
+import { RegisterRoutes } from './routes';
 // Creates and configures an ExpressJS web server.
 class App {
 
@@ -32,7 +34,17 @@ class App {
 
   // Configure API endpoints.
   private routes(): void {
+    this.express.use('/docs', express.static(__dirname + '/swagger-ui'));
+    this.express.use('/swagger.json', (req, res) => {
+        res.sendFile(__dirname + '/swagger.json');
+    });
     
+    this.express.use(bodyParser.urlencoded({ extended: true }));
+    this.express.use(bodyParser.json());
+    this.express.use(methodOverride());
+    
+    RegisterRoutes(this.express);
+    /*
     const router = express.Router();
     const metricsInstance = new metricsService.MetricsService();
     router.get('/', metricsInstance.metrics);
@@ -40,6 +52,7 @@ class App {
     router.post('/api', fullfilmentInstance.apiaiHandler);
 
     this.express.use('/', router);
+    */
   }
 
 }

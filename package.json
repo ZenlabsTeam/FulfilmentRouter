@@ -52,6 +52,7 @@
     "gulp-typescript": "^3.2.2",
     "jsonpath": "^0.2.12",
     "lodash": "^4.17.4",
+    "method-override": "^2.3.9",
     "mocha": "^3.5.0",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
