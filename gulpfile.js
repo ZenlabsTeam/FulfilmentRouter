@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const nodemon = require('gulp-nodemon');
 const JSON_FILES = ['src/*.json', 'src/**/*.json'];
-
+const TEST_JSON_FILES = ['test/*.json'];
 // pull in the project TypeScript config
 const tsProject = ts.createProject('tsconfig.json');
 
@@ -20,6 +20,10 @@ gulp.task('assets', function() {
     return gulp.src(JSON_FILES)
         .pipe(gulp.dest('dist/src/'));
 });
+gulp.task('assetsTest', function() {
+    return gulp.src(TEST_JSON_FILES)
+        .pipe(gulp.dest('dist/test/'));
+});
 
 gulp.task('serve', ['watch', 'assets'], function() {
     return nodemon({
@@ -30,4 +34,4 @@ gulp.task('serve', ['watch', 'assets'], function() {
         })
 })
 
-gulp.task('default', ['scripts', 'assets']);
+gulp.task('default', ['scripts', 'assets', 'assetsTest']);

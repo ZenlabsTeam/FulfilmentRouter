@@ -12,21 +12,21 @@
             "path": "/sum",
             "method": "POST",
             "msgTemplate": "The total Amount is <%=body%>",
-            "input": "$.result.parameters.number"
+            "inputPath": "$.result.parameters.number"
         },
         "maximum": {
             "serviceName": "MathService",
             "path": "/max",
             "method": "POST",
             "msgTemplate": "The maximum Amount is <%=body%>",
-            "input": "$.result.parameters.number"
+            "inputPath": "$.result.parameters.number"
         },
         "minimum": {
             "serviceName": "MathService",
             "path": "/min",
             "method": "POST",
             "msgTemplate": "The minimum Amount is <%=body%>",
-            "input": "$.result.parameters.number"
+            "inputPath": "$.result.parameters.number"
         },
         "pivalue": {
             "serviceName": "MathService",
@@ -39,7 +39,7 @@
             "path": "/power",
             "method": "POST",
             "msgTemplate": "The result is <%=body%>",
-            "input": {
+            "multiInput": {
                 "base": "$.result.parameters.base",
                 "power": "$.result.parameters.power"
             }

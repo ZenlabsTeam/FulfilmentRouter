@@ -1,61 +1,64 @@
 {
-  "name": "fulfilmentrouter",
-  "version": "1.0.0",
-  "description": "This is used for routing the fullfilment service",
-  "main": "index.ts",
-  "scripts": {
-    "start": "node ./dist/src/index.js",
-    "postinstall": "gulp default",
-    "pretest": "gulp default",
-    "test": "mocha dist/test",
-    "test1": "mocha --reporter spec --compilers ts:ts-node/register './test/baseroute.test.ts'"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/srinivasarajui/FulfilmentRouter.git"
-  },
-  "keywords": [
-    "API.AI",
-    "Fullfilment",
-    "Router"
-  ],
-  "author": "srini",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/srinivasarajui/FulfilmentRouter/issues"
-  },
-  "homepage": "https://github.com/srinivasarajui/FulfilmentRouter#readme",
-  "engines": {
-    "node": "6.11.1"
-  },
-  "dependencies": {
-    "@types/body-parser": "^1.16.5",
-    "@types/chai": "^3.4.34",
-    "@types/chai-http": "0.0.29",
-    "@types/debug": "0.0.30",
-    "@types/express": "^4.0.37",
-    "@types/jsonpath": "^0.2.0",
-    "@types/lodash": "^4.14.74",
-    "@types/mocha": "^2.2.32",
-    "@types/morgan": "^1.7.32",
-    "@types/node": "^8.0.24",
-    "@types/request": "^2.0.3",
-    "body-parser": "^1.17.2",
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "debug": "^3.0.0",
-    "express": "^4.15.4",
-    "express-basic-auth": "^1.1.2",
-    "gulp": "^3.9.1",
-    "gulp-nodemon": "^2.2.1",
-    "gulp-typescript": "^3.2.2",
-    "jsonpath": "^0.2.12",
-    "lodash": "^4.17.4",
-    "mocha": "^3.5.0",
-    "morgan": "^1.8.2",
-    "nodemon": "^1.11.0",
-    "request": "^2.81.0",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.4.2"
-  }
+    "name": "fulfilmentrouter",
+    "version": "1.0.0",
+    "description": "This is used for routing the fullfilment service",
+    "main": "index.ts",
+    "scripts": {
+        "start": "node ./dist/src/index.js",
+        "postinstall": "gulp default",
+        "pretest": "gulp default",
+        "test": "mocha dist/test",
+        "test1": "mocha --reporter spec --compilers ts:ts-node/register './test/baseroute.test.ts'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/srinivasarajui/FulfilmentRouter.git"
+    },
+    "keywords": [
+        "API.AI",
+        "Fullfilment",
+        "Router"
+    ],
+    "author": "srini",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/srinivasarajui/FulfilmentRouter/issues"
+    },
+    "homepage": "https://github.com/srinivasarajui/FulfilmentRouter#readme",
+    "engines": {
+        "node": "6.11.1"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "debug": "^3.0.0",
+        "express": "^4.15.4",
+        "express-basic-auth": "^1.1.2",
+        "jsonpath": "^0.2.12",
+        "lodash": "^4.17.4",
+        "mocha": "^3.5.0",
+        "morgan": "^1.8.2",
+        "request": "^2.81.0",
+        "request-promise": "^4.2.1",
+        "ts-node": "^3.3.0",
+        "typescript": "^2.4.2"
+    },
+    "devDependencies": {
+        "nodemon": "^1.11.0",
+        "gulp": "^3.9.1",
+        "gulp-nodemon": "^2.2.1",
+        "gulp-typescript": "^3.2.2",
+        "chai": "^4.1.2",
+        "chai-http": "^3.0.0",
+        "@types/body-parser": "^1.16.5",
+        "@types/chai": "^3.4.34",
+        "@types/chai-http": "0.0.29",
+        "@types/debug": "0.0.30",
+        "@types/express": "^4.0.37",
+        "@types/jsonpath": "^0.2.0",
+        "@types/lodash": "^4.14.74",
+        "@types/mocha": "^2.2.32",
+        "@types/morgan": "^1.7.32",
+        "@types/node": "^8.0.24",
+        "@types/request": "^2.0.3"
+    }
 }
