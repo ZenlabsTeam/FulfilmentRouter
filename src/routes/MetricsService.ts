@@ -11,18 +11,18 @@ export interface MetricsType{
 export class MetricsService {
 
   private static getMetrics():MetricsType{
-    let returnValue:MetricsType; 
+    let returnValue:MetricsType = { status: 'UP'}; 
     if(Process.cpuUsage){
-      returnValue = {
-        cpuUsage: Process.cpuUsage(),
-        memoryUsage: Process.memoryUsage(),
-        upTime: Process.uptime(),
-        status: 'UP'
-      }
+      returnValue.cpuUsage= Process.cpuUsage();
     }
-    else{
-      returnValue == { status: 'UP'}
+    if(Process.memoryUsage){
+      returnValue.memoryUsage= Process.memoryUsage();
     }
+    if(Process.uptime){
+      returnValue. upTime= Process.uptime();
+    }
+      
+    
     return returnValue;
 } 
   
