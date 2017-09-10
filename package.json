@@ -55,6 +55,7 @@
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
     "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2"
   }
