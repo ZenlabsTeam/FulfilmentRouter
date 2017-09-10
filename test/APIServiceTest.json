@@ -1,0 +1,72 @@
+{
+    "AddNumbers": {
+        "expectedText": "The total Amount is 26",
+        "input": {
+            "result": {
+                "action": "AddNumbers",
+                "parameters": {
+                    "number": [9, 8, 9]
+                }
+            }
+        }
+
+    },
+    "maximum": {
+        "expectedText": "The maximum Amount is 18",
+        "input": {
+            "result": {
+                "action": "maximum",
+                "parameters": {
+                    "number": [9, 18, 9]
+                }
+            }
+        }
+
+    },
+    "minimum": {
+        "expectedText": "The minimum Amount is 9",
+        "input": {
+            "result": {
+                "action": "minimum",
+                "parameters": {
+                    "number": [9, 18, 9]
+                }
+            }
+        }
+
+    },
+    "power": {
+        "expectedText": "The result is 9",
+        "input": {
+            "result": {
+                "action": "power",
+                "parameters": {
+                    "base": 3,
+                    "power": 2
+                }
+            }
+        }
+
+    },
+    "sqrt": {
+        "expectedText": "The result is 3",
+        "input": {
+            "result": {
+                "action": "sqrt",
+                "parameters": {
+                    "number": 9
+                }
+            }
+        }
+
+    },
+    "pivalue": {
+        "expectedText": "The value of PI is 3.14159",
+        "input": {
+            "result": {
+                "action": "pivalue"
+            }
+        }
+
+    }
+}
