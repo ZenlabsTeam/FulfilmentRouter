@@ -13,7 +13,7 @@ interface TestDetails{
     }
 }
 describe('API Route', function() {
-    this.timeout(15000);
+    this.timeout(75000);
     const testData = <TestDetails>require('../test/APIServiceTest.json');
     for(const key in testData) {
      

@@ -30,3 +30,8 @@ Authorization: Basic user password
 }
 
 ###
+GET http://localhost:3000/api-docs
+Authorization: Basic user password
+#####
+
+GET http://localhost:3000/api-docs
