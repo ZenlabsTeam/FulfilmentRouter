@@ -30,7 +30,16 @@ class App {
       authorizer: (user: string, password: string) => (password === 'password' && user === 'user')
     }));*/
 
-    const swaggerDocument = require('./swagger.json');
+    const swaggerDocument:any = require('./swagger.json');
+    if (process.env.NODE_ENV === 'development') {
+    swaggerDocument.host = 'localhost:3000';
+    swaggerDocument.schemes=['http'];
+    }else{
+      swaggerDocument.host = 'messangerapptraining1.herokuapp.com';
+      swaggerDocument.schemes=['https'];
+    }
+    swaggerDocument.basePath = '/';
+    
     this.express.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, true));
 
 
@@ -44,6 +53,7 @@ class App {
     router.get('/', metricsInstance.metrics);
     const fullfilmentInstance = new fullfilmentService.FulfilmentService();
     router.post('/api', fullfilmentInstance.apiaiHandler);
+  
 
     this.express.use('/', router);
   }

@@ -24,8 +24,10 @@ gulp.task('assetsTest', function() {
     return gulp.src(TEST_JSON_FILES)
         .pipe(gulp.dest('dist/test/'));
 });
-
-gulp.task('serve', ['watch', 'assets'], function() {
+gulp.task('set-dev-node-env', function() {
+    return process.env.NODE_ENV = 'development';
+});
+gulp.task('serve', ['watch', 'assets', 'set-dev-node-env'], function() {
     return nodemon({
             script: './dist/src/index.js',
         })
